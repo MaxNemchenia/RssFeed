@@ -8,13 +8,13 @@ namespace RSSFeedWeb.Serices
 {
     public class Service
     {
-        static string connectionString = @"data source=(localdb)\MSSQLLocalDB; Initial Catalog = Rss;Integrated Security=True;";
+        string connection = System.Configuration.ConfigurationManager.ConnectionStrings["DbConnection"].ConnectionString;
         DataContext db;
 
 
         public Service()
         {
-            db = new DataContext(connectionString);
+            db = new DataContext(connection);
         }
 
 
@@ -35,7 +35,6 @@ namespace RSSFeedWeb.Serices
             var channels = db.GetTable<ChannelModel>().ToList();
             foreach (var i in items)
             {
-                i.Description = Regex.Replace(i.Description, "<img[^>]+>(.+?)>", string.Empty);
                 i.Channel = channels.FirstOrDefault(x => x.Id == i.ChannelId);
             }
 

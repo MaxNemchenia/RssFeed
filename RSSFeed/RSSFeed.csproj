@@ -58,8 +58,10 @@
   <ItemGroup>
     <Compile Include="Interfaces\IChannelService.cs" />
     <Compile Include="Interfaces\IItemService.cs" />
+    <Compile Include="Interfaces\IParser.cs" />
     <Compile Include="Interfaces\IService.cs" />
     <Compile Include="DAL\ChannelInitializer.cs" />
+    <Compile Include="Parsers\XmlParserToItem.cs" />
     <Compile Include="Services\ItemService.cs" />
     <Compile Include="Models\Channel.cs" />
     <Compile Include="DAL\RSSContext.cs" />

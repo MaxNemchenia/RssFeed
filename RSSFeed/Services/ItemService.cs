@@ -21,7 +21,7 @@ namespace RSSFeed.Services
 
         public Item Find(string title, string pubDate)
         {
-            Item item = db.Items.SingleOrDefault(a => a.Title == title && a.PubDate == pubDate); // check
+            Item item = db.Items.FirstOrDefault(a => a.Title == title && a.PubDate == pubDate);
             return item;
         }
 
@@ -34,7 +34,7 @@ namespace RSSFeed.Services
 
         public void Update(Item updateItem)
         {
-            Item item = db.Items.SingleOrDefault(a => a.Title == updateItem.Title && a.PubDate == updateItem.PubDate); // check
+            Item item = db.Items.FirstOrDefault(a => a.Title == updateItem.Title && a.PubDate == updateItem.PubDate); // check
             updateItem.Id = item.Id;
             db.Entry(item).CurrentValues.SetValues(updateItem);
             db.SaveChanges();

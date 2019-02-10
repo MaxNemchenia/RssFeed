@@ -22,7 +22,7 @@ namespace RSSFeed.Services
         public Channel Find(string link)
         {
             Channel channel = new Channel();
-            channel = db.Channels.FirstOrDefault(a => a.Link == link); // check
+            channel = db.Channels.FirstOrDefault(a => a.Link == link);
             return channel;
         }
 
@@ -36,7 +36,7 @@ namespace RSSFeed.Services
 
         public void Update(Channel updateChannel)
         {
-            Channel channel = db.Channels.FirstOrDefault(a => a.Link == updateChannel.Link); // check
+            Channel channel = db.Channels.FirstOrDefault(a => a.Link == updateChannel.Link);
             updateChannel.Id = channel.Id;
             db.Entry(channel).CurrentValues.SetValues(updateChannel);
             db.SaveChanges();

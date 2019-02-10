@@ -9,9 +9,9 @@ namespace RSSFeed
     {
         static void Main(string[] args)
         {
-            Database.SetInitializer(new ChannelInitializer()); // check
+            //Database.SetInitializer(new ChannelInitializer());
             RssService rss = new RssService();
-            rss.RssFeeder();
+            rss.RssLoad();
             Console.ReadKey();
         }
     }
