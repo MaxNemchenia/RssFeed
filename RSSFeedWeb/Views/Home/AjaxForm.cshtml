@@ -1,0 +1,32 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+    @using (Ajax.BeginForm("AjaxFilter", new AjaxOptions { UpdateTargetId = "results" }))
+    {
+        <select name="id" class="channels">
+            <option value="0">Все источники</option>
+            @foreach (var c in ViewBag.Channels)
+            {
+                <option value=@c.Id>@c.Title</option>
+            }
+        </select>
+        <br />
+        <input type="radio" checked id="radio0" value="0" name="rb" />
+        <label for="radio0">Без сортировки</label>
+        <input type="radio" id="radio1" value="1" name="rb" />
+        <label for="radio1">Сортировать по дате</label>
+        <input type="radio" id="radio2" value="2" name="rb" />
+        <label for="radio2">Сортировать по источнику</label>
+        <br />
+        <input type="submit" value="Просмотреть" />
+    }
+
+    <div id="results"></div>
+</div>
+
+<link type="text/css" rel="stylesheet" href="../../Content/Site.css" />
+@Scripts.Render("~/scripts/jquery-3.3.1.min.js")
+@Scripts.Render("~/scripts/jquery.unobtrusive-ajax.min.js")
+

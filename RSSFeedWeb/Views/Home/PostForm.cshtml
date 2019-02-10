@@ -1,0 +1,62 @@
+﻿@using PagedList.Mvc;
+@model PagedList.IPagedList<RSSFeedWeb.Models.ItemModel>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml"; 
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    @Scripts.Render("~/Scripts/jquery-3.3.1.min.js")
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link type="text/css" rel="stylesheet" href="../../Content/Site.css" />
+</head>
+
+<body>
+    <div class="mainBody">
+        <form method="post">
+            <select name="id" class="channels">
+                <option value="0" @Html.Raw((ViewBag.Model.Filter == 0) ? "selected" : "")>Все источники</option>
+                @foreach (var c in ViewBag.Model.Channels)
+                {
+                    <option @Html.Raw((ViewBag.Model.Filter == c.Id) ? "selected" : "") value=@c.Id>@c.Title</option>
+                }
+            </select>
+            <br/>
+            <input type="radio" id="radio0" value="0" checked name="rb" />
+            <label for="radio0">Без сортировки</label>
+            <input type="radio" id="radio1" value="1" @Html.Raw((ViewBag.Model.Sort == 1) ? "checked" : "") name="rb" />
+            <label for="radio1">Сортировать по дате</label>
+            <input type="radio" id="radio2" value="2" @Html.Raw((ViewBag.Model.Sort == 2) ? "checked" : "") name="rb" />
+            <label for="radio2">Сортировать по источнику</label>
+            <br/>
+            <button type="submit">Просмотреть</button>
+
+            @Html.PagedListPager(Model, page => Url.Action("PostForm", new { page = page, rb = ViewBag.Model.Sort, id = ViewBag.Model.Filter }))
+        </form>
+
+        <table>
+            <tr>
+                <th>Источник</th>
+                <th>Название</th>
+                <th>Описание</th>
+                <th>Дата публикации</th>
+            </tr>
+
+            @foreach (var b in Model)
+            {
+                <tr>
+                    <td><p>@b.Channel.Title</p></td>
+                    <td><p>@Html.Raw(b.Title)</p></td>
+                    <td><p>@Html.Raw(b.Description)</p></td>
+                    <td><p>@b.PubDate</p></td>
+                </tr>
+            }
+        </table>
+
+        @Html.PagedListPager(Model, page => Url.Action("PostForm", new { page = page, rb = ViewBag.Model.Sort, id = ViewBag.Model.Filter }))
+     </div>
+</body>
+</html>

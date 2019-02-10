@@ -1,0 +1,29 @@
+﻿@using PagedList.Mvc;
+@model PagedList.IPagedList<RSSFeedWeb.Models.ItemModel>
+
+
+<div id="results">
+    @Html.PagedListPager(Model, page => Url.Action("AjaxFilter", new { page = page, rb = ViewBag.Model.Sort, id = ViewBag.Model.Filter }),
+     PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod="GET", UpdateTargetId = "results"}))
+    <table>
+        <tr>
+            <th>Источник</th>
+            <th>Название</th>
+            <th>Описание</th>
+            <th>Дата публикации</th>
+        </tr>
+
+        @foreach (var b in Model)
+        {
+            <tr>
+                <td><p>@b.Channel.Title</p></td>
+                <td><p>@Html.Raw(b.Title)</p></td>
+                <td><p>@Html.Raw(b.Description)</p></td>
+                <td><p>@b.PubDate</p></td>
+            </tr>
+        }
+    </table>
+
+    @Html.PagedListPager(Model, page => Url.Action("AjaxFilter", new { page = page, rb = ViewBag.Model.Sort, id = ViewBag.Model.Filter }),
+     PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions() { HttpMethod="GET", UpdateTargetId = "results"}))
+</div>
